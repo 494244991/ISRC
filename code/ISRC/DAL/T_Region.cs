@@ -39,7 +39,7 @@ namespace ISRC.DAL
 			strSql.Append("insert into T_Region(");
 			strSql.Append("ID,Name)");
 			strSql.Append(" values (");
-			strSql.Append("SQL2012ID,SQL2012Name)");
+			strSql.Append("@SQL2012ID,@SQL2012Name)");
 			SqlParameter[] parameters = {
 					new SqlParameter("SQL2012ID", SqlDbType.VarChar,64),
 					new SqlParameter("SQL2012Name", SqlDbType.VarChar,64)};
@@ -63,8 +63,8 @@ namespace ISRC.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("update T_Region set ");
-			strSql.Append("Name=SQL2012Name");
-			strSql.Append(" where ID=SQL2012ID ");
+			strSql.Append("Name=@SQL2012Name");
+			strSql.Append(" where ID=@SQL2012ID ");
 			SqlParameter[] parameters = {
 					new SqlParameter("SQL2012Name", SqlDbType.VarChar,64),
 					new SqlParameter("SQL2012ID", SqlDbType.VarChar,64)};
@@ -90,7 +90,7 @@ namespace ISRC.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from T_Region ");
-			strSql.Append(" where ID=SQL2012ID ");
+			strSql.Append(" where ID=@SQL2012ID ");
 			SqlParameter[] parameters = {
 					new SqlParameter("SQL2012ID", SqlDbType.VarChar,64)			};
 			parameters[0].Value = ID;

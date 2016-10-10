@@ -1,0 +1,13 @@
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\BLL\bin\Release\ISRC.BLL.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\BLL\bin\Release\ISRC.DAL.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\BLL\bin\Release\ISRC.DBUtility.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\BLL\bin\Release\ISRC.Model.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\BLL\bin\Release\Maticsoft.Common.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\BLL\bin\Release\System.Data.SQLite.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\BLL\bin\Release\MySql.Data.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\BLL\bin\Release\OpenSmtp.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\BLL\bin\Release\Excel.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\BLL\bin\Release\COM.Excel.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\BLL\bin\Release\Maticsoft.Common.pdb
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\BLL\obj\Release\BLL.csprojResolveAssemblyReference.cache
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\BLL\obj\Release\ISRC.BLL.dll

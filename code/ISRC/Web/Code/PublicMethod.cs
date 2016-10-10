@@ -2,6 +2,7 @@
 using System.Data;
 using System.IO;
 using System.Xml;
+using FineUI;
 
 namespace ISRC.Web.Code
 {
@@ -245,7 +246,50 @@ namespace ISRC.Web.Code
                 if (value == "Y") key = "已分解";
                 if (value == "N") key = "未分解";
             }
+            //后加
+            if (type == "Quality")
+            {
+                if (value == "0") key = "省市单位";
+                if (value == "1") key = "区单位";
+            }
             return key;
+        }
+        
+        //
+        public static void cycleList(DropDownList ddl,string cycle)
+        {
+            ddl.Items.Clear();
+            ddl.Hidden = false;
+            if (cycle == "月报表")
+            {
+                ddl.Items.Add(new ListItem("一月份", "1"));
+                ddl.Items.Add(new ListItem("二月份", "2"));
+                ddl.Items.Add(new ListItem("三月份", "3"));
+                ddl.Items.Add(new ListItem("四月份", "4"));
+                ddl.Items.Add(new ListItem("五月份", "5"));
+                ddl.Items.Add(new ListItem("六月份", "6"));
+                ddl.Items.Add(new ListItem("七月份", "7"));
+                ddl.Items.Add(new ListItem("八月份", "8"));
+                ddl.Items.Add(new ListItem("九月份", "9"));
+                ddl.Items.Add(new ListItem("十月份", "10"));
+                ddl.Items.Add(new ListItem("十一月份", "11"));
+                ddl.Items.Add(new ListItem("十二月份", "12"));
+                ddl.Label = "月份";
+            }
+            else if (cycle == "季报表")
+            {
+                ddl.Items.Add(new ListItem("第一季度", "1"));
+                ddl.Items.Add(new ListItem("第二季度", "2"));
+                ddl.Items.Add(new ListItem("第三季度", "3"));
+                ddl.Items.Add(new ListItem("第四季度", "4"));
+                ddl.Label = "季度";
+            }
+            else if (cycle == "半年报表")
+            {
+                ddl.Items.Add(new ListItem("上半年度", "1"));
+                ddl.Items.Add(new ListItem("下半年度", "2"));
+                ddl.Label = "半年度";
+            }
         }
     }
 }

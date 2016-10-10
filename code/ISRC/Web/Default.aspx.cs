@@ -44,6 +44,7 @@ namespace ISRC.Web
             }
         }
 
+        //获取XML文件
         private XmlDocument getXmlDocument()
         {
             BLL.tb_SYS_Account bllAccount = new BLL.tb_SYS_Account();
@@ -157,8 +158,6 @@ namespace ISRC.Web
                         break;
                 }
             }
-
-
             SetSelectedMenuID(MenuStyle, menuStyleID);
         }
 

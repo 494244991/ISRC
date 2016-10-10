@@ -37,18 +37,20 @@ namespace ISRC.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into T_Index(");
-			strSql.Append("ID,Name,Description,OderID)");
+			strSql.Append("ID,Name,Description,OderID,FatherID)");
 			strSql.Append(" values (");
-			strSql.Append("SQL2012ID,SQL2012Name,SQL2012Description,SQL2012OderID)");
+            strSql.Append("@SQL2012ID,@SQL2012Name,@SQL2012Description,@SQL2012OderID,@SQL2012FatherID)");
 			SqlParameter[] parameters = {
 					new SqlParameter("SQL2012ID", SqlDbType.VarChar,64),
 					new SqlParameter("SQL2012Name", SqlDbType.VarChar,64),
 					new SqlParameter("SQL2012Description", SqlDbType.VarChar,64),
-					new SqlParameter("SQL2012OderID", SqlDbType.VarChar,64)};
+					new SqlParameter("SQL2012OderID", SqlDbType.VarChar,64),
+                    new SqlParameter("SQL2012FatherID", SqlDbType.VarChar,64)};
 			parameters[0].Value = model.ID;
 			parameters[1].Value = model.Name;
 			parameters[2].Value = model.Description;
 			parameters[3].Value = model.OderID;
+            parameters[4].Value = model.FatherID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -63,34 +65,37 @@ namespace ISRC.DAL
 		/// <summary>
 		/// 更新一条数据
 		/// </summary>
-		public bool Update(ISRC.Model.T_Index model)
-		{
-			StringBuilder strSql=new StringBuilder();
-			strSql.Append("update T_Index set ");
-			strSql.Append("Name=SQL2012Name,");
-			strSql.Append("Description=SQL2012Description,");
-			strSql.Append("OderID=SQL2012OderID");
-			strSql.Append(" where ID=SQL2012ID ");
-			SqlParameter[] parameters = {
+        public bool Update(ISRC.Model.T_Index model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update T_Index set ");
+            strSql.Append("Name=@SQL2012Name,");
+            strSql.Append("Description=@SQL2012Description,");
+            strSql.Append("OderID=@SQL2012OderID,");
+            strSql.Append("FatherID=@SQL2012FatherID");
+            strSql.Append(" where ID=@SQL2012ID ");
+            SqlParameter[] parameters = {
 					new SqlParameter("SQL2012Name", SqlDbType.VarChar,64),
 					new SqlParameter("SQL2012Description", SqlDbType.VarChar,64),
 					new SqlParameter("SQL2012OderID", SqlDbType.VarChar,64),
-					new SqlParameter("SQL2012ID", SqlDbType.VarChar,64)};
-			parameters[0].Value = model.Name;
-			parameters[1].Value = model.Description;
-			parameters[2].Value = model.OderID;
-			parameters[3].Value = model.ID;
+                    new SqlParameter("SQL2012FatherID", SqlDbType.VarChar,64),
+					new SqlParameter("SQL2012ID", SqlDbType.VarChar,64),};
+            parameters[0].Value = model.Name;
+            parameters[1].Value = model.Description;
+            parameters[2].Value = model.OderID;
+            parameters[3].Value = model.FatherID;
+            parameters[4].Value = model.ID;
 
-			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
-			if (rows > 0)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
 		/// <summary>
 		/// 删除一条数据
@@ -100,7 +105,7 @@ namespace ISRC.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from T_Index ");
-			strSql.Append(" where ID=SQL2012ID ");
+			strSql.Append(" where ID=@SQL2012ID ");
 			SqlParameter[] parameters = {
 					new SqlParameter("SQL2012ID", SqlDbType.VarChar,64)			};
 			parameters[0].Value = ID;
@@ -142,8 +147,8 @@ namespace ISRC.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 ID,Name,Description,OderID from T_Index ");
-			strSql.Append(" where ID=SQL2012ID ");
+			strSql.Append("select  top 1 ID,Name,Description,OderID,FatherID from T_Index ");
+			strSql.Append(" where ID=@SQL2012ID ");
 			SqlParameter[] parameters = {
 					new SqlParameter("SQL2012ID", SqlDbType.VarChar,64)			};
 			parameters[0].Value = ID;
@@ -164,30 +169,34 @@ namespace ISRC.DAL
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>
-		public ISRC.Model.T_Index DataRowToModel(DataRow row)
-		{
-			ISRC.Model.T_Index model=new ISRC.Model.T_Index();
-			if (row != null)
-			{
-				if(row["ID"]!=null)
-				{
-					model.ID=row["ID"].ToString();
-				}
-				if(row["Name"]!=null)
-				{
-					model.Name=row["Name"].ToString();
-				}
-				if(row["Description"]!=null)
-				{
-					model.Description=row["Description"].ToString();
-				}
-				if(row["OderID"]!=null)
-				{
-					model.OderID=row["OderID"].ToString();
-				}
-			}
-			return model;
-		}
+        public ISRC.Model.T_Index DataRowToModel(DataRow row)
+        {
+            ISRC.Model.T_Index model = new ISRC.Model.T_Index();
+            if (row != null)
+            {
+                if (row["ID"] != null)
+                {
+                    model.ID = row["ID"].ToString();
+                }
+                if (row["Name"] != null)
+                {
+                    model.Name = row["Name"].ToString();
+                }
+                if (row["Description"] != null)
+                {
+                    model.Description = row["Description"].ToString();
+                }
+                if (row["OderID"] != null)
+                {
+                    model.OderID = row["OderID"].ToString();
+                }
+                if (row["FatherID"] != null)
+                {
+                    model.FatherID = row["FatherID"].ToString();
+                }
+            }
+            return model;
+        }
 
 		/// <summary>
 		/// 获得数据列表
@@ -195,7 +204,7 @@ namespace ISRC.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,Name,Description,OderID ");
+			strSql.Append("select ID,Name,Description,OderID,FatherID ");
 			strSql.Append(" FROM T_Index ");
 			if(strWhere.Trim()!="")
 			{
@@ -203,6 +212,20 @@ namespace ISRC.DAL
 			}
 			return DbHelperSQL.Query(strSql.ToString());
 		}
+
+        /// <summary>
+        /// 获得树装数据列表
+        /// </summary>
+        public DataSet GetTreeList(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("SELECT ID,Name,FatherID+'s' FatherID FROM T_Index UNION SELECT ID+'s',Name,FatherID FROM T_IndexCategory ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+            return DbHelperSQL.Query(strSql.ToString());
+        }
 
 		/// <summary>
 		/// 获得前几行数据

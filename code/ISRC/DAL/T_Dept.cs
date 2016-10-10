@@ -39,7 +39,7 @@ namespace ISRC.DAL
 			strSql.Append("insert into T_Dept(");
 			strSql.Append("ID,Name,Quality,RegionID,Contactor,Tel,OderID)");
 			strSql.Append(" values (");
-			strSql.Append("SQL2012ID,SQL2012Name,SQL2012Quality,SQL2012RegionID,SQL2012Contactor,SQL2012Tel,SQL2012OderID)");
+            strSql.Append("@SQL2012ID,@SQL2012Name,@SQL2012Quality,@SQL2012RegionID,@SQL2012Contactor,@SQL2012Tel,@SQL2012OderID)");
 			SqlParameter[] parameters = {
 					new SqlParameter("SQL2012ID", SqlDbType.VarChar,64),
 					new SqlParameter("SQL2012Name", SqlDbType.VarChar,64),
@@ -115,7 +115,7 @@ namespace ISRC.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from T_Dept ");
-			strSql.Append(" where ID=SQL2012ID ");
+			strSql.Append(" where ID=@SQL2012ID ");
 			SqlParameter[] parameters = {
 					new SqlParameter("SQL2012ID", SqlDbType.VarChar,64)			};
 			parameters[0].Value = ID;
@@ -216,25 +216,25 @@ namespace ISRC.DAL
 			return model;
 		}
 
-		/// <summary>
-		/// 获得数据列表
-		/// </summary>
-		public DataSet GetList(string strWhere)
-		{
-			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select ID,Name,Quality,RegionID,Contactor,Tel,OderID ");
-			strSql.Append(" FROM T_Dept ");
-			if(strWhere.Trim()!="")
-			{
-				strSql.Append(" where "+strWhere);
-			}
-			return DbHelperSQL.Query(strSql.ToString());
-		}
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetList(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select T_Dept.ID ID,T_Dept.Name Name,Quality,Contactor,Tel,OderID,T_Region.Name RegionName,T_Region.ID RegionID");
+            strSql.Append(" FROM T_Dept LEFT JOIN T_Region on T_Dept.RegionID= T_Region.ID ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+            return DbHelperSQL.Query(strSql.ToString());
+        }
 
-		/// <summary>
-		/// 获得前几行数据
-		/// </summary>
-		public DataSet GetList(int Top,string strWhere,string filedOrder)
+        /// <summary>
+        /// 获得前几行数据
+        /// </summary>
+        public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select ");

@@ -1,44 +1,63 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeBehind="Add.aspx.cs" Inherits="ISRC.Web.T_DeptIndex.Add" Title="增加页" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Add.aspx.cs" Inherits="ISRC.Web.JC.DeptIndex.Add" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">    
-    <table style="width: 100%;" cellpadding="2" cellspacing="1" class="border">
-        <tr>
-            <td class="tdbg">
-                
-<table cellSpacing="0" cellPadding="0" width="100%" border="0">
-	<tr>
-	<td height="25" width="30%" align="right">
-		T_DeptIndex
-	：</td>
-	<td height="25" width="*" align="left">
-		<asp:TextBox id="txtT_DeptIndex" runat="server" Width="200px"></asp:TextBox>
-	</td></tr>
-	<tr>
-	<td height="25" width="30%" align="right">
-		IndexID
-	：</td>
-	<td height="25" width="*" align="left">
-		<asp:TextBox id="txtIndexID" runat="server" Width="200px"></asp:TextBox>
-	</td></tr>
-</table>
+<!DOCTYPE html>
 
-            </td>
-        </tr>
-        <tr>
-            <td class="tdbg" align="center" valign="bottom">
-                <asp:Button ID="btnSave" runat="server" Text="保存"
-                    OnClick="btnSave_Click" class="inputbutton" onmouseover="this.className='inputbutton_hover'"
-                    onmouseout="this.className='inputbutton'"></asp:Button>
-                <asp:Button ID="btnCancle" runat="server" Text="取消"
-                    OnClick="btnCancle_Click" class="inputbutton" onmouseover="this.className='inputbutton_hover'"
-                    onmouseout="this.className='inputbutton'"></asp:Button>
-            </td>
-        </tr>
-    </table>
-    <br />
-</asp:Content>
-<%--<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceCheckright" runat="server">
-</asp:Content>--%>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <f:PageManager ID="PageManager1" AutoSizePanelID="panelMain" runat="server"></f:PageManager>
+        <f:Panel ID="panelMain" runat="server" ShowBorder="false" ShowHeader="false" AutoScroll="true">
+            <Toolbars>
+                <f:Toolbar ID="toolbar_01" runat="server">
+                    <Items>
+                        <f:Button ID="btnClose" runat="server" Text="关闭" Icon="SystemClose"></f:Button>
+                        <f:Button ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" Icon="SystemSave"></f:Button>
+                    </Items>
+                </f:Toolbar>
+            </Toolbars>
+            <Items>
+                <f:TextBox ID="txtName" Enabled="false" runat="server" Label="单位名称" Width="300px" LabelWidth="100px" Readonly="true" Required="true"></f:TextBox>
+                <f:Tree ID="treeIndex" OnNodeCheck="treeIndex_NodeCheck" Width="850px" Height="250px" ShowHeader="true" EnableCollapse="true" Title="可选指标" runat="server">
+
+                </f:Tree>
+
+
+
+                <f:Grid ID="gridIndex" Hidden="true" runat="server" ShowBorder="true" AllowPaging="true" ShowHeader="false" IsDatabasePaging="true"
+                                        DataKeyNames="ID" EnableCollapse="false" EnableCheckBoxSelect="true" PageSize="6" 
+                                        EnableMultiSelect="false" EnableRowSelectEvent="true">
+                    <Columns>
+                        <f:TemplateField Width="120px" HeaderText="子指标编号" TextAlign="Center">
+                            <ItemTemplate>
+                                <f:TextBox ID="txbID" runat="server" Readonly="true"></f:TextBox>
+                            </ItemTemplate>
+                        </f:TemplateField>
+                        <f:TemplateField Width="150px" HeaderText="子指标名称" TextAlign="Center">
+                            <ItemTemplate>
+                                <f:TextBox ID="txbName" runat="server" Readonly="true"></f:TextBox>
+                            </ItemTemplate>
+                        </f:TemplateField>
+                        <f:TemplateField Width="150px" HeaderText="大类指标名称" TextAlign="Center">
+                            <ItemTemplate>
+                                <f:TextBox ID="txbCategoryID" runat="server" Readonly="true"></f:TextBox>
+                            </ItemTemplate>
+                        </f:TemplateField>
+                        <f:TemplateField Width="250px" HeaderText="描述" TextAlign="Center">
+                            <ItemTemplate>
+                                <f:TextArea ID="txaDescription" runat="server" Height="50px"></f:TextArea>
+                            </ItemTemplate>
+                        </f:TemplateField>
+                    </Columns>
+                </f:Grid>
+
+
+            </Items>
+        </f:Panel>
+        <f:Window ID="windowPop" runat="server" Title="编辑" EnableCollapse="false" Hidden="true" EnableIFrame="true" IFrameUrl="about:blank" CloseAction="HidePostBack" EnableMaximize="false"
+                EnableResize="false" EnableClose="false" Target="Top" IsModal="true" Width="850px" Height="500px"></f:Window>
+    </form>
+</body>
+</html>

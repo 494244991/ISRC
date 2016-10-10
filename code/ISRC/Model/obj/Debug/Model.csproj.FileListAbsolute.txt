@@ -1,0 +1,13 @@
+E:\项目\横向\科技局项目\ScienceSystem\code\ISRC\Model\bin\Debug\ISRC.Model.dll
+E:\项目\横向\科技局项目\ScienceSystem\code\ISRC\Model\bin\Debug\ISRC.Model.pdb
+E:\项目\横向\科技局项目\ScienceSystem\code\ISRC\Model\obj\Debug\ISRC.Model.dll
+E:\项目\横向\科技局项目\ScienceSystem\code\ISRC\Model\obj\Debug\ISRC.Model.pdb
+D:\lynn\项目\科技金融系统项目\ScienceSystem\code\ISRC\Model\bin\Debug\ISRC.Model.dll
+D:\lynn\项目\科技金融系统项目\ScienceSystem\code\ISRC\Model\bin\Debug\ISRC.Model.pdb
+D:\lynn\项目\科技金融系统项目\ScienceSystem\code\ISRC\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
+D:\lynn\项目\科技金融系统项目\ScienceSystem\code\ISRC\Model\obj\Debug\ISRC.Model.dll
+D:\lynn\项目\科技金融系统项目\ScienceSystem\code\ISRC\Model\obj\Debug\ISRC.Model.pdb
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\Model\bin\Debug\ISRC.Model.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\Model\bin\Debug\ISRC.Model.pdb
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\Model\obj\Debug\ISRC.Model.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\Model\obj\Debug\ISRC.Model.pdb

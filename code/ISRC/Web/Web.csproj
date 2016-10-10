@@ -35,7 +35,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -80,20 +79,26 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\COM.Excel.dll" />
+    <Content Include="bin\Excel.dll" />
     <Content Include="bin\FineUI.dll" />
     <Content Include="bin\ISRC.BLL.dll" />
     <Content Include="bin\ISRC.DAL.dll" />
+    <Content Include="bin\ISRC.DBUtility.dll" />
     <Content Include="bin\ISRC.Model.dll" />
     <Content Include="bin\Maticsoft.Common.dll" />
     <Content Include="bin\Microsoft.Web.UI.WebControls.dll" />
     <Content Include="bin\MySql.Data.dll" />
     <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\OpenSmtp.dll" />
     <Content Include="bin\System.Data.SQLite.dll" />
     <Content Include="Controls\checkright.ascx" />
     <Content Include="Controls\copyright.ascx" />
     <Content Include="CSS\default.css" />
     <Content Include="CSS\main.css" />
     <Content Include="CSS\mark.css" />
+    <Content Include="CX\IndexList_demo.aspx" />
+    <Content Include="CX\ReportList.aspx" />
     <Content Include="extjs\ext-all.js" />
     <Content Include="extjs\ext-part1.js" />
     <Content Include="extjs\ext-part2.js" />
@@ -3662,37 +3667,34 @@
     <Content Include="JC\DeptIndex\Add.aspx" />
     <Content Include="JC\DeptIndex\List.aspx" />
     <Content Include="JC\DeptIndex\Modify.aspx" />
-    <Content Include="JC\DeptIndex\Show.aspx" />
     <Content Include="JC\Dept\Add.aspx" />
     <Content Include="JC\Dept\List.aspx" />
     <Content Include="JC\Dept\Modify.aspx" />
-    <Content Include="JC\Dept\Show.aspx" />
-    <Content Include="JC\IndexCategory\Add.aspx" />
-    <Content Include="JC\IndexCategory\List.aspx" />
-    <Content Include="JC\IndexCategory\Modify.aspx" />
-    <Content Include="JC\IndexCategory\Show.aspx" />
     <Content Include="JC\Index\Add.aspx" />
     <Content Include="JC\Index\List.aspx" />
     <Content Include="JC\Index\Modify.aspx" />
-    <Content Include="JC\Index\Show.aspx" />
     <Content Include="JC\Region\Add.aspx" />
     <Content Include="JC\Region\List.aspx" />
     <Content Include="JC\Region\Modify.aspx" />
-    <Content Include="JC\Region\Show.aspx" />
     <Content Include="Js\jquery.js" />
     <Content Include="Js\jquery.min.js" />
     <Content Include="Login.aspx" />
     <Content Include="Menu.xml" />
     <Content Include="Register.aspx" />
-    <Content Include="Sys\Account\List.aspx" />
-    <Content Include="Sys\Account\Modify.aspx" />
-    <Content Include="Sys\Menu\Add.aspx" />
-    <Content Include="Sys\Menu\List.aspx" />
-    <Content Include="Sys\Menu\Modify.aspx" />
-    <Content Include="Sys\RoleAuthorization\List.aspx" />
-    <Content Include="Sys\Role\Add.aspx" />
-    <Content Include="Sys\Role\List.aspx" />
-    <Content Include="Sys\Role\Modify.aspx" />
+    <Content Include="TB\Sys\Account\List.aspx" />
+    <Content Include="TB\Sys\Account\Modify.aspx" />
+    <Content Include="TB\Sys\Menu\Add.aspx" />
+    <Content Include="TB\Sys\Menu\List.aspx" />
+    <Content Include="TB\Sys\Menu\Modify.aspx" />
+    <Content Include="TB\Sys\RoleAuthorization\List.aspx" />
+    <Content Include="TB\Sys\Role\Add.aspx" />
+    <Content Include="TB\Sys\Role\List.aspx" />
+    <Content Include="TB\Sys\Role\Modify.aspx" />
+    <Content Include="TB\Add.aspx" />
+    <Content Include="TB\AuditList.aspx" />
+    <Content Include="TB\AuditModify.aspx" />
+    <Content Include="TB\List.aspx" />
+    <Content Include="TB\Modefy.aspx" />
     <Content Include="TB\T_Report\Add.aspx" />
     <Content Include="TB\T_Report\List.aspx" />
     <Content Include="TB\T_Report\Modify.aspx" />
@@ -3701,7 +3703,12 @@
     <Content Include="TB\T_SubReport\List.aspx" />
     <Content Include="TB\T_SubReport\Modify.aspx" />
     <Content Include="TB\T_SubReport\Show.aspx" />
+    <Content Include="TB\YearAuditList.aspx" />
+    <Content Include="Trigger\Dept.aspx" />
+    <Content Include="Trigger\Index.aspx" />
+    <Content Include="Trigger\IndexCategory.aspx" />
     <Content Include="Trigger\Menu.aspx" />
+    <Content Include="Trigger\Region.aspx" />
     <Content Include="Trigger\Role.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -3729,6 +3736,21 @@
     </Compile>
     <Compile Include="Controls\CopyRight.ascx.designer.cs">
       <DependentUpon>copyright.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CX\IndexList_demo.aspx.cs">
+      <DependentUpon>IndexList_demo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CX\IndexList_demo.aspx.designer.cs">
+      <DependentUpon>IndexList_demo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CX\jsonModel\IndexJson.cs" />
+    <Compile Include="CX\ReportList.aspx.cs">
+      <DependentUpon>ReportList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CX\ReportList.aspx.designer.cs">
+      <DependentUpon>ReportList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -3761,13 +3783,6 @@
     <Compile Include="JC\DeptIndex\Modify.aspx.designer.cs">
       <DependentUpon>Modify.aspx</DependentUpon>
     </Compile>
-    <Compile Include="JC\DeptIndex\Show.aspx.cs">
-      <DependentUpon>Show.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="JC\DeptIndex\Show.aspx.designer.cs">
-      <DependentUpon>Show.aspx</DependentUpon>
-    </Compile>
     <Compile Include="JC\Dept\Add.aspx.cs">
       <DependentUpon>Add.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3788,41 +3803,6 @@
     </Compile>
     <Compile Include="JC\Dept\Modify.aspx.designer.cs">
       <DependentUpon>Modify.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="JC\Dept\Show.aspx.cs">
-      <DependentUpon>Show.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="JC\Dept\Show.aspx.designer.cs">
-      <DependentUpon>Show.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="JC\IndexCategory\Add.aspx.cs">
-      <DependentUpon>Add.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="JC\IndexCategory\Add.aspx.designer.cs">
-      <DependentUpon>Add.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="JC\IndexCategory\List.aspx.cs">
-      <DependentUpon>List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="JC\IndexCategory\List.aspx.designer.cs">
-      <DependentUpon>List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="JC\IndexCategory\Modify.aspx.cs">
-      <DependentUpon>Modify.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="JC\IndexCategory\Modify.aspx.designer.cs">
-      <DependentUpon>Modify.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="JC\IndexCategory\Show.aspx.cs">
-      <DependentUpon>Show.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="JC\IndexCategory\Show.aspx.designer.cs">
-      <DependentUpon>Show.aspx</DependentUpon>
     </Compile>
     <Compile Include="JC\Index\Add.aspx.cs">
       <DependentUpon>Add.aspx</DependentUpon>
@@ -3845,13 +3825,6 @@
     <Compile Include="JC\Index\Modify.aspx.designer.cs">
       <DependentUpon>Modify.aspx</DependentUpon>
     </Compile>
-    <Compile Include="JC\Index\Show.aspx.cs">
-      <DependentUpon>Show.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="JC\Index\Show.aspx.designer.cs">
-      <DependentUpon>Show.aspx</DependentUpon>
-    </Compile>
     <Compile Include="JC\Region\Add.aspx.cs">
       <DependentUpon>Add.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3872,13 +3845,6 @@
     </Compile>
     <Compile Include="JC\Region\Modify.aspx.designer.cs">
       <DependentUpon>Modify.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="JC\Region\Show.aspx.cs">
-      <DependentUpon>Show.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="JC\Region\Show.aspx.designer.cs">
-      <DependentUpon>Show.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -3902,68 +3868,103 @@
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Sys\Account\List.aspx.cs">
+    <Compile Include="TB\Sys\Account\List.aspx.cs">
       <DependentUpon>List.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sys\Account\List.aspx.designer.cs">
+    <Compile Include="TB\Sys\Account\List.aspx.designer.cs">
       <DependentUpon>List.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Sys\Account\Modify.aspx.cs">
+    <Compile Include="TB\Sys\Account\Modify.aspx.cs">
       <DependentUpon>Modify.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sys\Account\Modify.aspx.designer.cs">
+    <Compile Include="TB\Sys\Account\Modify.aspx.designer.cs">
       <DependentUpon>Modify.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Sys\Menu\Add.aspx.cs">
+    <Compile Include="TB\Sys\Menu\Add.aspx.cs">
       <DependentUpon>Add.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sys\Menu\Add.aspx.designer.cs">
+    <Compile Include="TB\Sys\Menu\Add.aspx.designer.cs">
       <DependentUpon>Add.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Sys\Menu\List.aspx.cs">
+    <Compile Include="TB\Sys\Menu\List.aspx.cs">
       <DependentUpon>List.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sys\Menu\List.aspx.designer.cs">
+    <Compile Include="TB\Sys\Menu\List.aspx.designer.cs">
       <DependentUpon>List.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Sys\Menu\Modify.aspx.cs">
+    <Compile Include="TB\Sys\Menu\Modify.aspx.cs">
       <DependentUpon>Modify.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sys\Menu\Modify.aspx.designer.cs">
+    <Compile Include="TB\Sys\Menu\Modify.aspx.designer.cs">
       <DependentUpon>Modify.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Sys\RoleAuthorization\List.aspx.cs">
+    <Compile Include="TB\Sys\RoleAuthorization\List.aspx.cs">
       <DependentUpon>List.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sys\RoleAuthorization\List.aspx.designer.cs">
+    <Compile Include="TB\Sys\RoleAuthorization\List.aspx.designer.cs">
       <DependentUpon>List.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Sys\Role\Add.aspx.cs">
+    <Compile Include="TB\Sys\Role\Add.aspx.cs">
       <DependentUpon>Add.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sys\Role\Add.aspx.designer.cs">
+    <Compile Include="TB\Sys\Role\Add.aspx.designer.cs">
       <DependentUpon>Add.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Sys\Role\List.aspx.cs">
+    <Compile Include="TB\Sys\Role\List.aspx.cs">
       <DependentUpon>List.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sys\Role\List.aspx.designer.cs">
+    <Compile Include="TB\Sys\Role\List.aspx.designer.cs">
       <DependentUpon>List.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Sys\Role\Modify.aspx.cs">
+    <Compile Include="TB\Sys\Role\Modify.aspx.cs">
       <DependentUpon>Modify.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sys\Role\Modify.aspx.designer.cs">
+    <Compile Include="TB\Sys\Role\Modify.aspx.designer.cs">
       <DependentUpon>Modify.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TB\Add.aspx.cs">
+      <DependentUpon>Add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TB\Add.aspx.designer.cs">
+      <DependentUpon>Add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TB\AuditList.aspx.cs">
+      <DependentUpon>AuditList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TB\AuditList.aspx.designer.cs">
+      <DependentUpon>AuditList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TB\AuditModify.aspx.cs">
+      <DependentUpon>AuditModify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TB\AuditModify.aspx.designer.cs">
+      <DependentUpon>AuditModify.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TB\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TB\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TB\Modefy.aspx.cs">
+      <DependentUpon>Modefy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TB\Modefy.aspx.designer.cs">
+      <DependentUpon>Modefy.aspx</DependentUpon>
     </Compile>
     <Compile Include="TB\T_Report\Add.aspx.cs">
       <DependentUpon>Add.aspx</DependentUpon>
@@ -4021,13 +4022,48 @@
     <Compile Include="TB\T_SubReport\Show.aspx.designer.cs">
       <DependentUpon>Show.aspx</DependentUpon>
     </Compile>
+    <Compile Include="TB\YearAuditList.aspx.cs">
+      <DependentUpon>YearAuditList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TB\YearAuditList.aspx.designer.cs">
+      <DependentUpon>YearAuditList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Trigger\CaptchaImage.cs" />
+    <Compile Include="Trigger\Dept.aspx.cs">
+      <DependentUpon>Dept.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Trigger\Dept.aspx.designer.cs">
+      <DependentUpon>Dept.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Trigger\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Trigger\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Trigger\IndexCategory.aspx.cs">
+      <DependentUpon>IndexCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Trigger\IndexCategory.aspx.designer.cs">
+      <DependentUpon>IndexCategory.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Trigger\Menu.aspx.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Trigger\Menu.aspx.designer.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Trigger\Region.aspx.cs">
+      <DependentUpon>Region.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Trigger\Region.aspx.designer.cs">
+      <DependentUpon>Region.aspx</DependentUpon>
     </Compile>
     <Compile Include="Trigger\Role.aspx.cs">
       <DependentUpon>Role.aspx</DependentUpon>
@@ -4070,7 +4106,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\" />
-    <Folder Include="CX\" />
     <Folder Include="extjs\src\" />
   </ItemGroup>
   <ItemGroup>
@@ -4094,7 +4129,17 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3448</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

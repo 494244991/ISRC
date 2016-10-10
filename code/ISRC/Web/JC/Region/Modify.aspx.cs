@@ -1,4 +1,5 @@
 ﻿using System;
+using FineUI;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -11,64 +12,60 @@ using System.Web.UI.HtmlControls;
 using System.Text;
 using Maticsoft.Common;
 
-namespace ISRC.Web.T_Region
+namespace ISRC.Web.JC.Region
 {
-    public partial class Modify : Page
-    {       
+    public partial class Modify : PageBase
+    {
 
-        		protected void Page_Load(object sender, EventArgs e)
-		{
-			if (!Page.IsPostBack)
-			{
-				if (Request.Params["id"] != null && Request.Params["id"].Trim() != "")
-				{
-					string ID= Request.Params["id"];
-					ShowInfo(ID);
-				}
-			}
-		}
-			
-	private void ShowInfo(string ID)
-	{
-		ISRC.BLL.T_Region bll=new ISRC.BLL.T_Region();
-		ISRC.Model.T_Region model=bll.GetModel(ID);
-		this.lblID.Text=model.ID;
-		this.txtName.Text=model.Name;
+        private StringBuilder condition = new StringBuilder();
 
-	}
-
-		public void btnSave_Click(object sender, EventArgs e)
-		{
-			
-			string strErr="";
-			if(this.txtName.Text.Trim().Length==0)
-			{
-				strErr+="Name不能为空！\\n";	
-			}
-
-			if(strErr!="")
-			{
-				MessageBox.Show(this,strErr);
-				return;
-			}
-			string ID=this.lblID.Text;
-			string Name=this.txtName.Text;
-
-
-			ISRC.Model.T_Region model=new ISRC.Model.T_Region();
-			model.ID=ID;
-			model.Name=Name;
-
-			ISRC.BLL.T_Region bll=new ISRC.BLL.T_Region();
-			bll.Update(model);
-			Maticsoft.Common.MessageBox.ShowAndRedirect(this,"保存成功！","list.aspx");
-
-		}
-
-
-        public void btnCancle_Click(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            Response.Redirect("list.aspx");
+            if (!Page.IsPostBack)
+            {
+                btnClose.OnClientClick = ActiveWindow.GetHideReference();
+                LoadData();
+            }
+        }
+
+        private void LoadData()
+        {
+            condition.Append("T_Region.ID='").Append(Request.QueryString["id"].ToString()).Append("'");
+
+            BLL.T_Region bllRegion = new BLL.T_Region();
+            DataSet dsRegion = bllRegion.GetList(condition.ToString());
+            DataTable dtSource = dsRegion.Tables[0];
+            txtRegionID.Text = dtSource.Rows[0]["ID"].ToString();
+            txbRegionName.Text = dtSource.Rows[0]["Name"].ToString();
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            BLL.T_Region bllRegion = new BLL.T_Region();
+
+            Model.T_Region modelRegion = new Model.T_Region();
+            modelRegion.ID = Request.QueryString["id"].ToString();
+            modelRegion.Name = txbRegionName.Text.Trim();
+            bool result = bllRegion.Update(modelRegion);
+
+            if (!result)
+            {
+                Alert.ShowInTop("更新失败", "提示信息", MessageBoxIcon.Error, ActiveWindow.GetHideRefreshReference());
+            }
+            else
+            {
+                Alert.ShowInTop("更新成功", "提示信息", MessageBoxIcon.Information, ActiveWindow.GetHideRefreshReference());
+            }
+        }
+
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            Alert.ShowInTop("关闭本窗口,您所做的修改将不被保存", "提示信息", MessageBoxIcon.Information, ActiveWindow.GetHideReference());
+        }
+
+        protected void windowPop_Close(object sender, FineUI.WindowCloseEventArgs e)
+        {
+            Alert.ShowInTop("弹出窗口关闭了！");
         }
     }
 }

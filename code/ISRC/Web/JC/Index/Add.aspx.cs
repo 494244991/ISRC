@@ -1,72 +1,123 @@
 ﻿using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
+using FineUI;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
-using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using System.Text;
-using Maticsoft.Common;
+using System.Data;
 
-namespace ISRC.Web.T_Index
+namespace ISRC.Web.JC.Index
 {
-    public partial class Add : Page
+    public partial class Add : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-                       
+            btnClose.OnClientClick = ActiveWindow.GetHideReference();
+            if (!IsPostBack)
+            {
+                InitAddPage();
+            }
         }
 
-        		protected void btnSave_Click(object sender, EventArgs e)
-		{
-			
-			string strErr="";
-			if(this.txtID.Text.Trim().Length==0)
-			{
-				strErr+="ID不能为空！\\n";	
-			}
-			if(this.txtName.Text.Trim().Length==0)
-			{
-				strErr+="Name不能为空！\\n";	
-			}
-			if(this.txtDescription.Text.Trim().Length==0)
-			{
-				strErr+="Description不能为空！\\n";	
-			}
-			if(this.txtOderID.Text.Trim().Length==0)
-			{
-				strErr+="OderID不能为空！\\n";	
-			}
-
-			if(strErr!="")
-			{
-				MessageBox.Show(this,strErr);
-				return;
-			}
-			string ID=this.txtID.Text;
-			string Name=this.txtName.Text;
-			string Description=this.txtDescription.Text;
-			string OderID=this.txtOderID.Text;
-
-			ISRC.Model.T_Index model=new ISRC.Model.T_Index();
-			model.ID=ID;
-			model.Name=Name;
-			model.Description=Description;
-			model.OderID=OderID;
-
-			ISRC.BLL.T_Index bll=new ISRC.BLL.T_Index();
-			bll.Add(model);
-			Maticsoft.Common.MessageBox.ShowAndRedirect(this,"保存成功！","add.aspx");
-
-		}
-
-
-        public void btnCancle_Click(object sender, EventArgs e)
+        protected void btnSave_Click(object sender, EventArgs e)
         {
-            Response.Redirect("list.aspx");
+            BLL.T_IndexCategory bllIndexCategory = new BLL.T_IndexCategory();
+            BLL.T_Index bllIndex = new BLL.T_Index();
+
+            #region 检查
+
+            string IndexType = Request.QueryString["IndexType"].ToString();
+            string selectedIndexID = Session["selectedIndexID"].ToString();
+            if (IndexType == "0")
+            {
+                DataSet dsIndexCategory = bllIndexCategory.GetList(" ID='" + txbIndexNO.Text.ToString() + "'");
+                if (dsIndexCategory.Tables[0].Rows.Count > 0)
+                {
+                    Alert.ShowInTop("该项已存在！", "错误", MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            else
+            {
+                if (selectedIndexID != "-1")
+                {
+                    DataSet dsIndex = bllIndex.GetList(" ID='" + txbIndexNO.Text.ToString() + "'");
+                    if (dsIndex.Tables[0].Rows.Count > 0)
+                    {
+                        Alert.ShowInTop("该项已存在！", "错误", MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                else
+                {
+                    Alert.ShowInTop("未选择父类，不能增加子项指标！", "错误", MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            #endregion
+
+            #region 保存
+
+            if (IndexType == "0")
+            {
+                Model.T_IndexCategory modelIndexCategory = new Model.T_IndexCategory();
+                modelIndexCategory.ID = txbIndexNO.Text.ToString();
+                modelIndexCategory.Name = txbIndexName.Text.ToString();
+                modelIndexCategory.FatherID = "-1s";
+                bool result = bllIndexCategory.Add(modelIndexCategory);
+                if (result)
+                {
+                    Alert.ShowInTop("添加成功！", "信息", MessageBoxIcon.Information, ActiveWindow.GetHidePostBackReference("Main_Add_Success"));
+                }
+                else
+                {
+                    Alert.ShowInTop("添加失败！", "错误", MessageBoxIcon.Error, ActiveWindow.GetHidePostBackReference("Main_Add_Fail"));
+                }
+            }
+            else
+            {
+                string FatherID = Session["selectedIndexID"].ToString();
+                FatherID = FatherID.Substring(0, FatherID.Length - 1);
+
+                Model.T_Index modelIndex = new Model.T_Index();
+                modelIndex.ID = txbIndexNO.Text.ToString();
+                modelIndex.Name = txbIndexName.Text.ToString();
+                modelIndex.FatherID = FatherID;
+                modelIndex.Description = txbIndexDescription.Text.ToString();
+                modelIndex.OderID = nbxIndexOrderID.Text.ToString();
+                bool result = bllIndex.Add(modelIndex);
+                if (result)
+                {
+                    Alert.ShowInTop("添加成功！", "信息", MessageBoxIcon.Information, ActiveWindow.GetHidePostBackReference("Main_Add_Success"));
+                }
+                else
+                {
+                    Alert.ShowInTop("添加失败！", "错误", MessageBoxIcon.Error, ActiveWindow.GetHidePostBackReference("Main_Add_Fail"));
+                }
+            }
+
+            #endregion
+        }
+
+        private void InitAddPage()
+        {
+            string IndexType = Request.QueryString["IndexType"].ToString();
+
+            if (IndexType == "0")
+            {
+                //新增父类
+                txtFatherName.Hidden = true;
+                txbIndexDescription.Hidden = true;
+                nbxIndexOrderID.Hidden = true;
+            }
+            else
+            {
+                //新增子类
+                txtFatherName.Text = Session["selectedIndexName"].ToString();
+                txtFatherName.Enabled = false;
+            }
         }
     }
 }

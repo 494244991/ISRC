@@ -1,44 +1,43 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeBehind="Add.aspx.cs" Inherits="ISRC.Web.T_Region.Add" Title="增加页" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Add.aspx.cs" Inherits="ISRC.Web.JC.Region.Add" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">    
-    <table style="width: 100%;" cellpadding="2" cellspacing="1" class="border">
-        <tr>
-            <td class="tdbg">
-                
-<table cellSpacing="0" cellPadding="0" width="100%" border="0">
-	<tr>
-	<td height="25" width="30%" align="right">
-		ID
-	：</td>
-	<td height="25" width="*" align="left">
-		<asp:TextBox id="txtID" runat="server" Width="200px"></asp:TextBox>
-	</td></tr>
-	<tr>
-	<td height="25" width="30%" align="right">
-		Name
-	：</td>
-	<td height="25" width="*" align="left">
-		<asp:TextBox id="txtName" runat="server" Width="200px"></asp:TextBox>
-	</td></tr>
-</table>
+<!DOCTYPE html>
 
-            </td>
-        </tr>
-        <tr>
-            <td class="tdbg" align="center" valign="bottom">
-                <asp:Button ID="btnSave" runat="server" Text="保存"
-                    OnClick="btnSave_Click" class="inputbutton" onmouseover="this.className='inputbutton_hover'"
-                    onmouseout="this.className='inputbutton'"></asp:Button>
-                <asp:Button ID="btnCancle" runat="server" Text="取消"
-                    OnClick="btnCancle_Click" class="inputbutton" onmouseover="this.className='inputbutton_hover'"
-                    onmouseout="this.className='inputbutton'"></asp:Button>
-            </td>
-        </tr>
-    </table>
-    <br />
-</asp:Content>
-<%--<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceCheckright" runat="server">
-</asp:Content>--%>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+    <form id="form_01" runat="server">
+        <f:PageManager ID="pageManager_01"  AutoSizePanelID="panelMain" runat="server" />
+        <f:Panel ID="panelMain" runat="server" Layout="Fit" ShowBorder="False" AutoScroll="true" ShowHeader="false">
+            <Toolbars>
+                <f:Toolbar ID="toolbar_01" runat="server">
+                    <Items>
+                        <f:Button ID="btnClose" Text="关闭" runat="server" Icon="SystemClose">
+                        </f:Button>
+                        <f:Button ID="btnSave" Text="保存" OnClick="btnSave_Click" runat="server" ValidateForms="formInfo_01,formInfo_02" Icon="SystemSave">
+                        </f:Button>
+                    </Items>
+                </f:Toolbar>
+            </Toolbars>
+            <Items>             
+                <f:Form ID="formInfo_01" ShowBorder="false" LabelAlign="left" ShowHeader="false" runat="server"
+                                    EnableCollapse="false" Expanded="true" LabelWidth="100px">
+                    <Rows>
+                        <f:FormRow>
+                            <Items>
+                                <f:TextBox ID="txbRegionNO" Label="地区编号" Width="250px" LabelWidth="70px" Required="true" runat="server"></f:TextBox>
+                                <f:TextBox ID="txbRegionName" Label="地区名称" Width="250px" LabelWidth="70px" Required="true" runat="server"></f:TextBox>                                 
+                            </Items>
+                        </f:FormRow>
+                    </Rows>
+                </f:Form>
+             </Items>
+        </f:Panel>
+        <f:Window ID="windowPop" Title="新增" EnableCollapse="false" Hidden="true" EnableIFrame="true" IFrameUrl="about:blank" CloseAction="HidePostBack" EnableMaximize="false"
+            EnableResize="false" EnableClose="false" Target="Top" IsModal="true" Width="850px" Height="450px" runat="server">
+        </f:Window>
+    </form>
+</body>
+</html>

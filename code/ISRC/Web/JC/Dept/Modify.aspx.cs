@@ -1,4 +1,5 @@
 ﻿using System;
+using FineUI;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -13,97 +14,80 @@ using Maticsoft.Common;
 
 namespace ISRC.Web.T_Dept
 {
-    public partial class Modify : Page
-    {       
+    public partial class Modify : PageBase
+    {
 
-        		protected void Page_Load(object sender, EventArgs e)
+        private StringBuilder condition = new StringBuilder();
+
+        protected void Page_Load(object sender, EventArgs e)
 		{
 			if (!Page.IsPostBack)
 			{
-				if (Request.Params["id"] != null && Request.Params["id"].Trim() != "")
-				{
-					string ID= Request.Params["id"];
-					ShowInfo(ID);
-				}
+                btnClose.OnClientClick = ActiveWindow.GetHideReference();
+                tgbDeptRegionID.OnClientTriggerClick =
+                    windowPop.GetSaveStateReference(tgbDeptRegionID.ClientID, hdfDeptNO.ClientID)
+                    + windowPop.GetShowReference("~\\Trigger\\Region.aspx?Type=P", "选择地区");
+                LoadData();
 			}
 		}
-			
-	private void ShowInfo(string ID)
-	{
-		ISRC.BLL.T_Dept bll=new ISRC.BLL.T_Dept();
-		ISRC.Model.T_Dept model=bll.GetModel(ID);
-		this.lblID.Text=model.ID;
-		this.txtName.Text=model.Name;
-		this.txtQuality.Text=model.Quality;
-		this.txtRegionID.Text=model.RegionID;
-		this.txtContactor.Text=model.Contactor;
-		this.txtTel.Text=model.Tel;
-		this.txtOderID.Text=model.OderID;
 
-	}
-
-		public void btnSave_Click(object sender, EventArgs e)
-		{
-			
-			string strErr="";
-			if(this.txtName.Text.Trim().Length==0)
-			{
-				strErr+="Name不能为空！\\n";	
-			}
-			if(this.txtQuality.Text.Trim().Length==0)
-			{
-				strErr+="Quality不能为空！\\n";	
-			}
-			if(this.txtRegionID.Text.Trim().Length==0)
-			{
-				strErr+="RegionID不能为空！\\n";	
-			}
-			if(this.txtContactor.Text.Trim().Length==0)
-			{
-				strErr+="Contactor不能为空！\\n";	
-			}
-			if(this.txtTel.Text.Trim().Length==0)
-			{
-				strErr+="Tel不能为空！\\n";	
-			}
-			if(this.txtOderID.Text.Trim().Length==0)
-			{
-				strErr+="OderID不能为空！\\n";	
-			}
-
-			if(strErr!="")
-			{
-				MessageBox.Show(this,strErr);
-				return;
-			}
-			string ID=this.lblID.Text;
-			string Name=this.txtName.Text;
-			string Quality=this.txtQuality.Text;
-			string RegionID=this.txtRegionID.Text;
-			string Contactor=this.txtContactor.Text;
-			string Tel=this.txtTel.Text;
-			string OderID=this.txtOderID.Text;
-
-
-			ISRC.Model.T_Dept model=new ISRC.Model.T_Dept();
-			model.ID=ID;
-			model.Name=Name;
-			model.Quality=Quality;
-			model.RegionID=RegionID;
-			model.Contactor=Contactor;
-			model.Tel=Tel;
-			model.OderID=OderID;
-
-			ISRC.BLL.T_Dept bll=new ISRC.BLL.T_Dept();
-			bll.Update(model);
-			Maticsoft.Common.MessageBox.ShowAndRedirect(this,"保存成功！","list.aspx");
-
-		}
-
-
-        public void btnCancle_Click(object sender, EventArgs e)
+        private void LoadData()
         {
-            Response.Redirect("list.aspx");
+            condition.Append("T_Dept.ID='").Append(Request.QueryString["id"].ToString()).Append("'");
+
+            BLL.T_Dept bllDept = new BLL.T_Dept();
+            DataSet dsDept = bllDept.GetList(condition.ToString());
+            DataTable dtSource = dsDept.Tables[0];
+
+
+            txtDeptID.Text = dtSource.Rows[0]["ID"].ToString();
+            txbDeptName.Text = dtSource.Rows[0]["Name"].ToString();
+            ddlDeptQuality.SelectedValue = dtSource.Rows[0]["Quality"].ToString();
+            tgbDeptRegionID.Text = dtSource.Rows[0]["RegionName"].ToString();
+            txbDeptContactor.Text = dtSource.Rows[0]["Contactor"].ToString();
+            txtDeptTel.Text = dtSource.Rows[0]["Tel"].ToString();
+            nbxOderID.Text = dtSource.Rows[0]["OderID"].ToString();
+            hdfDeptNO.Text = dtSource.Rows[0]["RegionID"].ToString();
+            if(dtSource.Rows[0]["Quality"].ToString()=="1")
+            {
+                tgbDeptRegionID.Hidden = false;
+            }
         }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            BLL.T_Dept bllDept = new BLL.T_Dept();
+
+            Model.T_Dept modelDept = new Model.T_Dept();
+            modelDept.ID = Request.QueryString["id"].ToString();
+            modelDept.Name = txbDeptName.Text.Trim();
+            modelDept.OderID = nbxOderID.Text.Trim();
+            modelDept.Quality = ddlDeptQuality.SelectedValue.ToString().Trim();
+            modelDept.RegionID = hdfDeptNO.Text.Trim();
+            modelDept.Tel = txtDeptTel.Text.Trim();
+            modelDept.Contactor = txbDeptContactor.Text.Trim();
+            bool result = bllDept.Update(modelDept);
+
+            if (!result)
+            {
+                Alert.ShowInTop("更新失败", "提示信息", MessageBoxIcon.Error, ActiveWindow.GetHideRefreshReference());
+            }
+            else
+            {
+                Alert.ShowInTop("更新成功", "提示信息", MessageBoxIcon.Information, ActiveWindow.GetHideRefreshReference());
+            }
+        }
+
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            Alert.ShowInTop("关闭本窗口,您所做的修改将不被保存", "提示信息", MessageBoxIcon.Information, ActiveWindow.GetHideReference());
+        }
+
+        protected void windowPop_Close(object sender, FineUI.WindowCloseEventArgs e)
+        {
+            Alert.ShowInTop("弹出窗口关闭了！");
+        }
+	
+
     }
 }

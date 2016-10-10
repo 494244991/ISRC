@@ -41,7 +41,7 @@ namespace ISRC.DAL
 			strSql.Append("insert into T_DeptIndex(");
 			strSql.Append("DeptID,IndexID)");
 			strSql.Append(" values (");
-			strSql.Append("SQL2012DeptID,SQL2012IndexID)");
+			strSql.Append("@SQL2012DeptID,@SQL2012IndexID)");
 			SqlParameter[] parameters = {
 					new SqlParameter("SQL2012DeptID", SqlDbType.VarChar,64),
 					new SqlParameter("SQL2012IndexID", SqlDbType.VarChar,64)};
@@ -93,7 +93,7 @@ namespace ISRC.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from T_DeptIndex ");
-			strSql.Append(" where DeptID=SQL2012DeptID and IndexID=SQL2012IndexID ");
+			strSql.Append(" where DeptID=@SQL2012DeptID and IndexID=@SQL2012IndexID ");
 			SqlParameter[] parameters = {
 					new SqlParameter("SQL2012DeptID", SqlDbType.VarChar,64),
 					new SqlParameter("SQL2012IndexID", SqlDbType.VarChar,64)			};

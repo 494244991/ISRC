@@ -1,42 +1,44 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="Modify.aspx.cs" Inherits="ISRC.Web.T_Region.Modify" Title="修改页" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">    
-    <table style="width: 100%;" cellpadding="2" cellspacing="1" class="border">
-        <tr>
-            <td class="tdbg">
-                
-<table cellSpacing="0" cellPadding="0" width="100%" border="0">
-	<tr>
-	<td height="25" width="30%" align="right">
-		ID
-	：</td>
-	<td height="25" width="*" align="left">
-		<asp:label id="lblID" runat="server"></asp:label>
-	</td></tr>
-	<tr>
-	<td height="25" width="30%" align="right">
-		Name
-	：</td>
-	<td height="25" width="*" align="left">
-		<asp:TextBox id="txtName" runat="server" Width="200px"></asp:TextBox>
-	</td></tr>
-</table>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Modify.aspx.cs" Inherits="ISRC.Web.JC.Region.Modify" %>
 
-            </td>
-        </tr>
-        <tr>
-            <td class="tdbg" align="center" valign="bottom">
-                <asp:Button ID="btnSave" runat="server" Text="保存"
-                    OnClick="btnSave_Click" class="inputbutton" onmouseover="this.className='inputbutton_hover'"
-                    onmouseout="this.className='inputbutton'"></asp:Button>
-                <asp:Button ID="btnCancle" runat="server" Text="取消"
-                    OnClick="btnCancle_Click" class="inputbutton" onmouseover="this.className='inputbutton_hover'"
-                    onmouseout="this.className='inputbutton'"></asp:Button>
-            </td>
-        </tr>
-    </table>
-</asp:Content>
-<%--<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceCheckright" runat="server">
-</asp:Content>--%>
+<!DOCTYPE html>
 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+    <form id="form_01" runat="server">
+        <f:PageManager ID="pagemanager_01" AutoSizePanelID="panel_01" runat="server"></f:PageManager>
+        <f:Panel ID="panel_01" Layout="Fit" ShowBorder="False" ShowHeader="false" runat="server">
+            <Items>
+                <f:Form ID="formInfo" ShowBorder="true" LabelAlign="Left" ShowHeader="false" EnableCollapse="false" Expanded="true" runat="server">
+                    <Toolbars>
+                        <f:Toolbar ID="toolbar_01" runat="server">
+                            <Items>
+                                <f:Button ID="btnSave" Text="保存" ValidateForms="formInfo" Icon="SystemSave" OnClick="btnSave_Click" runat="server">
+                                </f:Button>
+                                <f:Button ID="btnClose" Text="关闭" Icon="SystemClose" OnClick="btnClose_Click" runat="server">
+                                </f:Button>
+                            </Items>
+                        </f:Toolbar>
+                    </Toolbars>
+                    <Rows>
+                        <f:FormRow>
+                            <Items>
+                                <f:TextBox ID="txtRegionID" Label="地区编号" Width="250px" LabelWidth="70px" Required="true" Enabled="false" runat="server">
+                                </f:TextBox>
+                                <f:TextBox ID="txbRegionName" Label="地区名称" Width="250px" LabelWidth="70px" Required="true" runat="server">
+                                </f:TextBox>   
+                            </Items>
+                        </f:FormRow>
+                    </Rows>
+                </f:Form>
+            </Items>
+        </f:Panel>
+        <f:Window ID="windowPop" Title="选择" Hidden="true" EnableIFrame="true" IFrameUrl="about:blank" CloseAction="HidePostBack" EnableMaximize="false"
+            EnableResize="false" EnableClose="false" OnClose="windowPop_Close" Target="Top" IsModal="true" Width="850px" Height="450px" runat="server">
+        </f:Window>
+    </form>
+</body>
+</html>

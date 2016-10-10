@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FineUI;
+using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
@@ -14,132 +15,64 @@ namespace ISRC.Web.T_Dept
     {
         
         
-        
-		ISRC.BLL.T_Dept bll = new ISRC.BLL.T_Dept();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            btnAdd.OnClientClick = windowPop.GetShowReference("Add.aspx", "新增填报单位");
+            btnDelete.OnClientClick = gridDept.GetNoSelectionAlertReference("至少选择一项！");
             if (!Page.IsPostBack)
             {
-                gridView.BorderColor = ColorTranslator.FromHtml(Application[Session["Style"].ToString() + "xtable_bordercolorlight"].ToString());
-                gridView.HeaderStyle.BackColor = ColorTranslator.FromHtml(Application[Session["Style"].ToString() + "xtable_titlebgcolor"].ToString());
-                btnDelete.Attributes.Add("onclick", "return confirm(\"你确认要删除吗？\")");
-                BindData();
+                gridDept.SortField = "ID";
+                BindGrid();
             }
         }
-        
-        protected void btnSearch_Click(object sender, EventArgs e)
+
+        protected void BindGrid()
         {
-            BindData();
+            string strWhere = string.Format("1=1 ORDER BY T_Dept.OderID,T_Dept.ID");
+
+            BLL.T_Dept bllDept = new BLL.T_Dept();
+            DataSet dsDept = bllDept.GetList(strWhere);
+            DataTable dtSource = dsDept.Tables[0];
+
+            gridDept.DataSource = dtSource;
+            gridDept.DataBind();
         }
-        
+
+        protected void gridDept_Sort(object sender, GridSortEventArgs e)
+        {
+            gridDept.SortDirection = e.SortDirection;
+            gridDept.SortField = e.SortField;
+            BindGrid();
+        }
+
+        protected void gridDept_PageIndexChange(object sender, GridPageEventArgs e)
+        {
+            gridDept.PageIndex = e.NewPageIndex;
+            //this.BindGrid();
+        }
+
+        protected void windowPop_Close(object sender, WindowCloseEventArgs e)
+        {
+            this.BindGrid();
+        }
+
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            string idlist = GetSelIDlist();
-            if (idlist.Trim().Length == 0) 
-                return;
-            bll.DeleteList(idlist);
-            BindData();
-        }
-        
-        #region gridView
-                        
-        public void BindData()
-        {
-            #region
-            //if (!Context.User.Identity.IsAuthenticated)
-            //{
-            //    return;
-            //}
-            //AccountsPrincipal user = new AccountsPrincipal(Context.User.Identity.Name);
-            //if (user.HasPermissionID(PermId_Modify))
-            //{
-            //    gridView.Columns[6].Visible = true;
-            //}
-            //if (user.HasPermissionID(PermId_Delete))
-            //{
-            //    gridView.Columns[7].Visible = true;
-            //}
-            #endregion
+            BLL.T_Dept bllDept = new BLL.T_Dept();
 
-            DataSet ds = new DataSet();
-            StringBuilder strWhere = new StringBuilder();
-            if (txtKeyword.Text.Trim() != "")
-            {      
-                #warning 代码生成警告：请修改 keywordField 为需要匹配查询的真实字段名称
-                //strWhere.AppendFormat("keywordField like '%{0}%'", txtKeyword.Text.Trim());
-            }            
-            ds = bll.GetList(strWhere.ToString());            
-            gridView.DataSource = ds;
-            gridView.DataBind();
-        }
-
-        protected void gridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gridView.PageIndex = e.NewPageIndex;
-            BindData();
-        }
-        protected void gridView_OnRowCreated(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.Header)
+            //注意此处：多也删除时，默认为第一页，需根据页码计算行数
+            string id = gridDept.DataKeys[gridDept.PageIndex*gridDept.PageSize+gridDept.SelectedRowIndex][0].ToString();
+            bool result = bllDept.Delete(id);
+            if (result)
             {
-                //e.Row.Cells[0].Text = "<input id='Checkbox2' type='checkbox' onclick='CheckAll()'/><label></label>";
+                Alert.ShowInTop("删除成功", "信息", MessageBoxIcon.Information);
+                BindGrid();
+            }
+            else
+            {
+                Alert.ShowInTop("删除失败", "错误", MessageBoxIcon.Error);
             }
         }
-        protected void gridView_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            e.Row.Attributes.Add("style", "background:#FFF");
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                LinkButton linkbtnDel = (LinkButton)e.Row.FindControl("LinkButton1");
-                linkbtnDel.Attributes.Add("onclick", "return confirm(\"你确认要删除吗\")");
-                
-                //object obj1 = DataBinder.Eval(e.Row.DataItem, "Levels");
-                //if ((obj1 != null) && ((obj1.ToString() != "")))
-                //{
-                //    e.Row.Cells[1].Text = obj1.ToString();
-                //}
-               
-            }
-        }
-        
-        protected void gridView_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            //#warning 代码生成警告：请检查确认真实主键的名称和类型是否正确
-            //int ID = (int)gridView.DataKeys[e.RowIndex].Value;
-            //bll.Delete(ID);
-            //gridView.OnBind();
-        }
-
-        private string GetSelIDlist()
-        {
-            string idlist = "";
-            bool BxsChkd = false;
-            for (int i = 0; i < gridView.Rows.Count; i++)
-            {
-                CheckBox ChkBxItem = (CheckBox)gridView.Rows[i].FindControl("DeleteThis");
-                if (ChkBxItem != null && ChkBxItem.Checked)
-                {
-                    BxsChkd = true;
-                    //#warning 代码生成警告：请检查确认Cells的列索引是否正确
-                    if (gridView.DataKeys[i].Value != null)
-                    {                        
-                        idlist += gridView.DataKeys[i].Value.ToString() + ",";
-                    }
-                }
-            }
-            if (BxsChkd)
-            {
-                idlist = idlist.Substring(0, idlist.LastIndexOf(","));
-            }
-            return idlist;
-        }
-
-        #endregion
-
-
-
-
-
     }
 }

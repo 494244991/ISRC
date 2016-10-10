@@ -1,36 +1,77 @@
-ï»¿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ISRC.Web.Login" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ISRC.Web.Login" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
+<head>
+    <title>ÓÃ»§µÇÂ¼</title>
+    <link href="CSS/login/xtree.css" type="text/css" rel="stylesheet" />
+    <link href="CSS/login/User_Login.css" type="text/css" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 </head>
-<body>
-    <form id="form_01" runat="server">
-    <div>
-        <f:PageManager ID="pageManager_01" runat="server"></f:PageManager>
+<body id="userlogin_body">
+    <form runat="server">
+        <div></div>
 
-        <f:Window ID="windowLogin" Title="ç™»é™†" EnableClose="false" IsModal="false" WindowPosition="GoldenSection" Width="350px" runat="server">
-            <Items>
-                <f:SimpleForm ID="simpleForm_01" ShowBorder="false" BodyPadding="10px" LabelWidth="60px" ShowHeader="false" runat="server">
-                    <Items>
-                        <f:TextBox ID="txbUserName" Label="ç”¨æˆ·å" Required="true" runat="server"></f:TextBox>
-                        <f:TextBox ID="txbPassword" Label="å¯†ç " TextMode="Password" Required="true" runat="server"></f:TextBox>
-                    </Items>
-                </f:SimpleForm>
-            </Items>
-            <Toolbars>
-                <f:Toolbar ID="toolbar_01" ToolbarAlign="Center" Position="Bottom" runat="server">
-                    <Items>
-                        <f:Button ID="btnLogin" Type="Submit" Text="ç™»å½•" ValidateForms="sf_01" ValidateTarget="Top" OnClick="btnLogin_Click" runat="server"></f:Button>
-                        <f:Button ID="btnRegister" Type="Button" Text="æ³¨å†Œ" EnablePostBack="true" runat="server" OnClick="btnRegister_Click"></f:Button>
-                    </Items>
-                </f:Toolbar>
-            </Toolbars>
-        </f:Window>
-    </div>
+        <div id="user_login">
+            <dl>
+                <dd id="user_top">
+                    <ul>
+                        <li class="user_top_l"></li>
+                        <li class="user_top_c"></li>
+                        <li class="user_top_r"></li>
+                    </ul>
+                    <dd id="user_main">
+                        <ul>
+                            <li class="user_main_l"></li>
+                            <li class="user_main_c">
+                                <div class="user_main_box">
+                                    <ul>
+                                        <li class="user_main_text">ÓÃ»§Ãû£º </li>
+                                        <li class="user_main_input">
+                                            <asp:TextBox runat="server" ID="txbUserName" CssClass="TxtUserNameCssClass" MaxLength="20"></asp:TextBox>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li class="user_main_text">ÃÜ Âë£º </li>
+                                        <li class="user_main_input">
+                                            <asp:TextBox runat="server" ID="txbPassword" CssClass="TxtPasswordCssClass" TextMode="Password"></asp:TextBox>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="user_main_r">
+                                <asp:ImageButton runat="server" ID="btnLogin" OnClick="btnLogin_Click" CssClass="IbtnEnterCssClass"
+                                    ImageUrl="~/Images/login/user_botton.gif" />
+                            </li>
+                        </ul>
+                        <dd id="user_bottom">
+                            <ul>
+                                <li class="user_bottom_l"></li>
+                                <li class="user_bottom_c"><span style="MARGIN-TOP: 40px"></span></li>
+                                <li class="user_bottom_r"></li>
+                            </ul>
+                        </dd>
+            </dl>
+        </div>
+        <div></div>
     </form>
 </body>
+<script src="Js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[type='image']").click(function () {
+            if ($("input.TxtUserNameCssClass").val() == "") {
+                alert("ÓÃ»§Ãû²»ÄÜÎª¿Õ");
+                return false;
+            }
+            if ($("input.TxtPasswordCssClass").val() == "") {
+                alert("ÃÜÂë²»ÄÜÎª¿Õ");
+                return false;
+            }
+            return true;
+        })
+    })
+
+</script>
 </html>

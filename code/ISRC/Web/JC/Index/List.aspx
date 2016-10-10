@@ -1,72 +1,96 @@
-﻿<%@ Page Title="T_Index" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeBehind="List.aspx.cs" Inherits="ISRC.Web.T_Index.List" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-<script language="javascript" src="/js/CheckBox.js" type="text/javascript"></script>
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="List.aspx.cs" Inherits="ISRC.Web.JC.Index.List" %>
 
-<!--Title -->
+<!DOCTYPE html>
 
-            <!--Title end -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <f:PageManager ID="pageManager_01" AutoSizePanelID="panelMain" runat="server" />  
+        <f:Panel ID="panelMain" runat="server" ShowBorder="false" ShowHeader="false" EnableCollapse="true" Layout="HBox">                 
+            <Items>
+                <f:Panel ID="panelLeft"  BoxFlex="1" runat="server" ShowBorder="true" ShowHeader="false" Layout="Fit">                  
+                    <Items>
+                        <f:Tree ID="treeBOM" Title="BOM单" ShowBorder="false" ShowHeader="false" EnableSingleClickExpand="false" 
+                                EnableCollapse="true" runat="server" AutoScroll="True" EnableMultiSelect="false" OnNodeCommand="treeBOM_NodeCommand">
+                        </f:Tree>
+                    </Items>
+                </f:Panel>
+                <f:Panel ID="panelRight" BoxFlex="3" runat="server" ShowBorder="false" ShowHeader="false" Layout="VBox">
+                    <Items>
+                        <f:Panel ID="panelRightIndex" Hidden="false" BoxFlex="1" ShowHeader="false" ShowBorder="false" Layout="Fit" runat="server">
+                            <Items>
+                                <f:Grid ID="gridIndex" Title="子类指标信息表" ShowBorder="false" AllowPaging="true" ShowHeader="true" IsDatabasePaging="true"
+                                DataKeyNames="ID" EnableCollapse="false" EnableCheckBoxSelect="true" PageSize="15" 
+                                EnableMultiSelect="false" runat="server">
+                                    <Toolbars>
+                                        <f:Toolbar ID="toolbar_01" runat="server">
+                                            <Items>
+                                                <f:Button ID="btnAdd" Text="新增" Enabled="false" Icon="Add" runat="server">
+                                                </f:Button>
+                                                    <f:Button ID="btnDelete" OnClick="btnDelete_Click" Text="删除" Enabled="false" Icon="Delete" runat="server">
+                                                </f:Button>
+                                            </Items>
+                                        </f:Toolbar>
+                                    </Toolbars>
+                                    <Columns>
+                                        <f:WindowField Width="60px" WindowID="windowPop" TextAlign="Center" HeaderText="编辑" Icon="ApplicationEdit"
+                                        ToolTip="编辑" DataTextFormatString="{0}" DataIFrameUrlFields="ID" DataIFrameUrlFormatString="Modify.aspx?IndexID={0}&IndexType=1"
+                                        DataWindowTitleField="MaterialName" DataWindowTitleFormatString="编辑 - {0}" />
+                                        <f:BoundField Width="120px" ColumnID="IndexNO" SortField="ID" DataField="ID"
+                                                TextAlign="Center" HeaderText="指标编号"></f:BoundField>
+                                        <f:BoundField Width="150px" ColumnID="IndexName" SortField="Name" DataField="Name"
+                                                TextAlign="Center" HeaderText="指标名称"></f:BoundField>
+                                        <f:BoundField Width="150px" ColumnID="IndexCategoryID" SortField="FatherID" DataField="FatherID"
+                                                TextAlign="Center" HeaderText="大类指标"></f:BoundField>
+                                        <f:BoundField Width="100px" ColumnID="IndexOderID" SortField="OderID" DataField="OderID"
+                                                TextAlign="Center" HeaderText="排序等级"></f:BoundField>
+                                        <f:BoundField Width="250px" ColumnID="IndexDescription" SortField="Description" DataField="Description"
+                                                TextAlign="Center" HeaderText="指标描述"></f:BoundField>
+                                    </Columns>
+                                </f:Grid>
+                            </Items>
+                        </f:Panel>
+                        <f:Panel ID="panelRightIndexCategory" Hidden="false" BoxFlex="1" ShowHeader="false" ShowBorder="false" Layout="Fit" runat="server">
+                            <Items>
+                                <f:Grid ID="gridIndexCategory" Title="父类指标信息表" ShowBorder="false" AllowPaging="true" ShowHeader="true" IsDatabasePaging="true"
+                                DataKeyNames="ID" EnableCollapse="false" EnableCheckBoxSelect="true" PageSize="15" 
+                                EnableMultiSelect="false" runat="server">
+                                    <Toolbars>
+                                        <f:Toolbar ID="toolbar1" runat="server">
+                                            <Items>
+                                                <f:Button ID="btnAdd_IndexCategory" Text="新增" Icon="Add" runat="server">
+                                                </f:Button>
+                                                    <f:Button ID="btnDelete_IndexCategory" OnClick="btnDelete_IndexCategory_Click" Text="删除" Icon="Delete" runat="server">
+                                                </f:Button>
+                                            </Items>
+                                        </f:Toolbar>
+                                    </Toolbars>
+                                    <Columns>
+                                        <f:WindowField Width="60px" WindowID="windowPop" TextAlign="Center" HeaderText="编辑" Icon="ApplicationEdit"
+                                        ToolTip="编辑" DataTextFormatString="{0}" DataIFrameUrlFields="ID" DataIFrameUrlFormatString="Modify.aspx?IndexID={0}&IndexType=0"
+                                        DataWindowTitleField="IndexCategoryName" DataWindowTitleFormatString="编辑 - {0}" />
+                                        <f:BoundField Width="120px" ColumnID="IndexCategoryNO" SortField="ID" DataField="ID"
+                                                TextAlign="Center" HeaderText="大类指标编号"></f:BoundField>
+                                        <f:BoundField Width="150px" ColumnID="IndexCategoryName" SortField="Name" DataField="Name"
+                                                TextAlign="Center" HeaderText="大类指标名"></f:BoundField>
+                                        <f:BoundField Width="150px" ColumnID="IndexCategoryFatherID" Hidden="true" SortField="FatherID" DataField="FatherID"
+                                                TextAlign="Center" HeaderText="父类目"></f:BoundField>
+                                    </Columns>
+                                </f:Grid>
+                            </Items>
+                        </f:Panel>
+                    </Items>    
+                </f:Panel>
 
-            <!--Add  -->
-
-            <!--Add end -->
-
-            <!--Search -->
-            <table style="width: 100%;" cellpadding="2" cellspacing="1" class="border">
-                <tr>
-                    <td style="width: 80px" align="right" class="tdbg">
-                         <b>关键字：</b>
-                    </td>
-                    <td class="tdbg">                       
-                    <asp:TextBox ID="txtKeyword" runat="server"></asp:TextBox>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:Button ID="btnSearch" runat="server" Text="查询"  OnClick="btnSearch_Click" >
-                    </asp:Button>                    
-                        
-                    </td>
-                    <td class="tdbg">
-                    </td>
-                </tr>
-            </table>
-            <!--Search end-->
-            <br />
-            <asp:GridView ID="gridView" runat="server" AllowPaging="True" Width="100%" CellPadding="3"  OnPageIndexChanging ="gridView_PageIndexChanging"
-                    BorderWidth="1px" DataKeyNames="ID" OnRowDataBound="gridView_RowDataBound"
-                    AutoGenerateColumns="false" PageSize="10"  RowStyle-HorizontalAlign="Center" OnRowCreated="gridView_OnRowCreated">
-                    <Columns>
-                    <asp:TemplateField ControlStyle-Width="30" HeaderText="选择"    >
-                                <ItemTemplate>
-                                    <asp:CheckBox ID="DeleteThis" onclick="javascript:CCA(this);" runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField> 
-                            
-		<asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" ItemStyle-HorizontalAlign="Center"  /> 
-		<asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" ItemStyle-HorizontalAlign="Center"  /> 
-		<asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" ItemStyle-HorizontalAlign="Center"  /> 
-		<asp:BoundField DataField="OderID" HeaderText="OderID" SortExpression="OderID" ItemStyle-HorizontalAlign="Center"  /> 
-                            
-                            <asp:HyperLinkField HeaderText="详细" ControlStyle-Width="50" DataNavigateUrlFields="ID" DataNavigateUrlFormatString="Show.aspx?id={0}"
-                                Text="详细"  />
-                            <asp:HyperLinkField HeaderText="编辑" ControlStyle-Width="50" DataNavigateUrlFields="ID" DataNavigateUrlFormatString="Modify.aspx?id={0}"
-                                Text="编辑"  />
-                            <asp:TemplateField ControlStyle-Width="50" HeaderText="删除"   Visible="false"  >
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Delete"
-                                         Text="删除"></asp:LinkButton>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                        </Columns>
-                </asp:GridView>
-               <table border="0" cellpadding="0" cellspacing="1" style="width: 100%;">
-                <tr>
-                    <td style="width: 1px;">                        
-                    </td>
-                    <td align="left">
-                        <asp:Button ID="btnDelete" runat="server" Text="删除" OnClick="btnDelete_Click"/>                       
-                    </td>
-                </tr>
-            </table>
-</asp:Content>
-<%--<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceCheckright" runat="server">
-</asp:Content>--%>
+            </Items>
+        </f:Panel>
+        <f:Window ID="windowPop" Title="编辑"  EnableCollapse="false" Hidden="true" EnableIFrame="true" IFrameUrl="about:blank" CloseAction="HidePostBack" EnableMaximize="false"
+            EnableResize="false" EnableClose="false" OnClose="windowPop_Close" Target="Top" IsModal="true" Width="850px" Height="450px" runat="server">
+        </f:Window>
+    </form>
+</body>
+</html>

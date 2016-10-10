@@ -39,7 +39,7 @@ namespace ISRC.DAL
 			strSql.Append("insert into T_IndexCategory(");
 			strSql.Append("ID,Name,FatherID)");
 			strSql.Append(" values (");
-			strSql.Append("SQL2012ID,SQL2012Name,SQL2012FatherID)");
+			strSql.Append("@SQL2012ID,@SQL2012Name,@SQL2012FatherID)");
 			SqlParameter[] parameters = {
 					new SqlParameter("SQL2012ID", SqlDbType.VarChar,64),
 					new SqlParameter("SQL2012Name", SqlDbType.VarChar,64),
@@ -65,9 +65,9 @@ namespace ISRC.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("update T_IndexCategory set ");
-			strSql.Append("Name=SQL2012Name,");
-			strSql.Append("FatherID=SQL2012FatherID");
-			strSql.Append(" where ID=SQL2012ID ");
+			strSql.Append("Name=@SQL2012Name,");
+			strSql.Append("FatherID=@SQL2012FatherID");
+			strSql.Append(" where ID=@SQL2012ID ");
 			SqlParameter[] parameters = {
 					new SqlParameter("SQL2012Name", SqlDbType.VarChar,64),
 					new SqlParameter("SQL2012FatherID", SqlDbType.VarChar,64),
@@ -90,26 +90,28 @@ namespace ISRC.DAL
 		/// <summary>
 		/// 删除一条数据
 		/// </summary>
-		public bool Delete(string ID)
-		{
-			
-			StringBuilder strSql=new StringBuilder();
-			strSql.Append("delete from T_IndexCategory ");
-			strSql.Append(" where ID=SQL2012ID ");
-			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012ID", SqlDbType.VarChar,64)			};
-			parameters[0].Value = ID;
+        public bool Delete(string ID)
+        {
 
-			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
-			if (rows > 0)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete from T_IndexCategory ");
+            strSql.Append(" where ID=@SQL2012ID ");
+            strSql.Append("delete from T_Index ");
+            strSql.Append(" where FatherID=@SQL2012ID ");
+            SqlParameter[] parameters = {
+					new SqlParameter("SQL2012ID", SqlDbType.VarChar,64)			};
+            parameters[0].Value = ID;
+
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 		/// <summary>
 		/// 批量删除数据
 		/// </summary>
@@ -138,7 +140,7 @@ namespace ISRC.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select  top 1 ID,Name,FatherID from T_IndexCategory ");
-			strSql.Append(" where ID=SQL2012ID ");
+			strSql.Append(" where ID=@SQL2012ID ");
 			SqlParameter[] parameters = {
 					new SqlParameter("SQL2012ID", SqlDbType.VarChar,64)			};
 			parameters[0].Value = ID;

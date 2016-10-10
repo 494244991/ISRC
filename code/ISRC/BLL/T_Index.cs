@@ -94,6 +94,15 @@ namespace ISRC.BLL
 		{
 			return dal.GetList(strWhere);
 		}
+
+        /// <summary>
+        /// 获得树装数据列表
+        /// </summary>
+        public DataSet GetTreeList(string strWhere)
+        {
+            return dal.GetTreeList(strWhere);
+        }
+
 		/// <summary>
 		/// 获得前几行数据
 		/// </summary>

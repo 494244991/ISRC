@@ -1,0 +1,6 @@
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\DAL\bin\Release\ISRC.DAL.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\DAL\bin\Release\ISRC.DBUtility.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\DAL\bin\Release\ISRC.Model.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\DAL\bin\Release\System.Data.SQLite.dll
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\DAL\obj\Release\DAL.csprojResolveAssemblyReference.cache
+C:\Users\健铭\Desktop\ScienceSystem\code\ISRC\DAL\obj\Release\ISRC.DAL.dll
